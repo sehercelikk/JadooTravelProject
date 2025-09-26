@@ -1,0 +1,17 @@
+﻿@using JadooTravel.Dtos.CategoryDtos
+@model CreateCategoryDto
+@{
+    Layout = null;
+}
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+<div class="container">
+    <br />
+    <form method="post">
+        <div class="form-group">
+            <label>Kategori Adı</label>
+            <input type="text" asp-for="CategoryName" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-success">Ekle</button>
+    </form>
+</div>

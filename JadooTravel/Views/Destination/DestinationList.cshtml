@@ -1,0 +1,41 @@
+﻿@using JadooTravel.Dtos.DestinationDtos
+@model List<ResultDestinationDto>
+@{
+    Layout = null;
+}
+
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+
+<div class="container">
+    <br />
+    <table class="table table-bordered">
+        <tr>
+            <td>#</td>
+            <td>Şehir - Ülke</td>
+            <td>Resim</td>
+            <td>Fiyat</td>
+            <td>Gün Gece</td>
+            <td>Kapasite</td>
+            <td>Açıklama</td>
+            <td>Sil</td>
+            <td>Güncelle</td>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.CityCountry</td>
+                <td>@item.ImageUrl</td>
+                <td>@item.Price</td>
+                <td>@item.DayNight</td>
+                <td>@item.Capacity</td>
+                <td>@item.Description</td>
+                <td><a href="/Destination/DeleteDestination/@item.Id" class="btn btn-danger">Sil</a></td>
+                <td><a href="/Destination/UpdateDestination/@item.Id" class="btn btn-info">Güncelle</a></td>
+            </tr>
+        }
+    </table>
+    <a href="/Destination/CreateDestination" class="btn btn-success">Kayıt Ekle</a>
+</div>
+
