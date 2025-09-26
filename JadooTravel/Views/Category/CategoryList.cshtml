@@ -1,0 +1,29 @@
+﻿@using JadooTravel.Dtos.CategoryDtos
+@model List<ResultCategoryDto>
+@{
+    Layout = null;
+}
+<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+
+<div class="container">
+    <br />
+    <table class="table table-bordered">
+        <tr>
+            <td>#</td>
+            <td>Kategoryi Adı</td>
+            <td>Sil</td>
+            <td>Güncelle</td>
+        </tr>
+        @foreach(var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.CategoryName</td>
+                <td><a href="/Category/DeleteCategory/@item.Id" class="btn btn-danger">Sil</a></td>
+                <td><a href="/Category/UpdateCategory/@item.Id" class="btn btn-info">Sil</a></td>
+            </tr>
+        }
+    </table>
+    <a href="/Category/CreateCatgory" class="btn btn-success">Kayıt Ekle</a>
+</div>
