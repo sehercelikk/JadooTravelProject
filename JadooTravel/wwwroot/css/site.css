@@ -20,3 +20,9 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.fixed-img {
+    width: 100%;
+    height: 250px; /* istediðin sabit yükseklik */
+    object-fit: cover; /* resmin ortalanarak kýrpýlmasýný saðlar */
+}
