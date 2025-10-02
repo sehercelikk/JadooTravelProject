@@ -2,6 +2,7 @@ using JadooTravel.Services.CategoryServices;
 using JadooTravel.Services.DestinationServices;
 using JadooTravel.Services.FeatureService;
 using JadooTravel.Services.ReservationService;
+using JadooTravel.Services.ServiceService;
 using JadooTravel.Services.TestimonialService;
 using JadooTravel.Services.TripPlanService;
 using JadooTravel.Settings;
@@ -16,6 +17,7 @@ builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IDestinationService, DestinationService>();
 builder.Services.AddScoped<IFeatureService, FeatureService>();
 builder.Services.AddScoped<IRezervationService, RezervationService>();
+builder.Services.AddScoped<IServiceService, ServiceService>();
 builder.Services.AddScoped<ITestimonialService, TestimonialService>();
 builder.Services.AddScoped<ITripPlanService, TripPlanService>();
 
