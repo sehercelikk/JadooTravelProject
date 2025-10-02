@@ -1,11 +1,51 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using JadooTravel.Dtos.FeatureDtos;
+using JadooTravel.Services.FeatureService;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace JadooTravel.Controllers;
 
 public class FeatureController : Controller
 {
-    public IActionResult Index()
+    private readonly IFeatureService _featureService;
+
+    public FeatureController(IFeatureService featureService)
     {
-        return View();
+        _featureService = featureService;
     }
+
+    public async Task<IActionResult> FeatureList()
+    {
+        var result= await _featureService.GetAllFeaturesAsync();
+        return View(result);
+    }
+
+    public IActionResult CreateFeature() => View();
+
+    [HttpPost]
+    public async Task<IActionResult> CreateFeature(CreateFeatureDto model)
+    {
+        await _featureService.CreateFeatureAsync(model);
+        return RedirectToAction("FeatureList");
+    }
+
+    public async Task<IActionResult> UpdateFeature(string id)
+    {
+        var findId= await _featureService.GetFeatureByIdAsync(id);
+        return View(findId);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> UpdateFeature(UpdateFeatureDto model)
+    {
+        await _featureService.UpdateFeatureAsync(model);
+        return RedirectToAction("FeatureList");
+    }
+
+    public async Task<IActionResult> DeleteCategory(string id)
+    {
+        await _featureService.DeleteFeatureAsync(id);
+        return RedirectToAction("FeatureList");
+    }
+
 }

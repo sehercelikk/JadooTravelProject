@@ -4,7 +4,6 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/AdminUI/Index.cshtml";
 }
-<link href="~/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
 
 
 <div class="container">
@@ -22,7 +21,7 @@
                 <td>@item.Id</td>
                 <td>@item.CategoryName</td>
                 <td><a href="/Category/DeleteCategory/@item.Id" class="btn btn-danger">Sil</a></td>
-                <td><a href="/Category/UpdateCategory/@item.Id" class="btn btn-info">Sil</a></td>
+                <td><a href="/Category/UpdateCategory/@item.Id" class="btn btn-info">Güncelle</a></td>
             </tr>
         }
     </table>

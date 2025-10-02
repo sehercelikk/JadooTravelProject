@@ -1,5 +1,9 @@
 using JadooTravel.Services.CategoryServices;
 using JadooTravel.Services.DestinationServices;
+using JadooTravel.Services.FeatureService;
+using JadooTravel.Services.ReservationService;
+using JadooTravel.Services.TestimonialService;
+using JadooTravel.Services.TripPlanService;
 using JadooTravel.Settings;
 using Microsoft.Extensions.Options;
 using System.Reflection;
@@ -10,6 +14,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IDestinationService, DestinationService>();
+builder.Services.AddScoped<IFeatureService, FeatureService>();
+builder.Services.AddScoped<IRezervationService, RezervationService>();
+builder.Services.AddScoped<ITestimonialService, TestimonialService>();
+builder.Services.AddScoped<ITripPlanService, TripPlanService>();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
@@ -41,6 +49,6 @@ app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Default}/{action=Index}/{id?}");
 
 app.Run();

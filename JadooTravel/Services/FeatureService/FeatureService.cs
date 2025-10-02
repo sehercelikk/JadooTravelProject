@@ -1,31 +1,50 @@
-﻿using JadooTravel.Dtos.FeatureDtos;
+﻿using AutoMapper;
+using JadooTravel.Dtos.FeatureDtos;
+using JadooTravel.Entities;
+using JadooTravel.Settings;
+using MongoDB.Driver;
 
 namespace JadooTravel.Services.FeatureService;
 
 public class FeatureService : IFeatureService
 {
-    public Task CreateFeatureAsync(CreateFeatureDto feature)
+    private readonly IMongoCollection<Feature> _features;
+    private readonly IMapper _mapper;
+
+    public FeatureService(IMapper mapper, IDatabaseSetting _databaseSetting)
     {
-        throw new NotImplementedException();
+        var client= new MongoClient(_databaseSetting.ConnectionString);
+        var database = client.GetDatabase(_databaseSetting.DatabaseName);
+        _features = database.GetCollection<Feature>(_databaseSetting.FeatureCollectionName);
+        _mapper = mapper;
     }
 
-    public Task DeleteFeatureAsync(string id)
+    public async Task CreateFeatureAsync(CreateFeatureDto feature)
     {
-        throw new NotImplementedException();
+        var value= _mapper.Map<Feature>(feature);
+        await _features.InsertOneAsync(value);
     }
 
-    public Task<List<ResultFeatureDto>> GetAllFeaturesAsync()
+    public async Task DeleteFeatureAsync(string id)
     {
-        throw new NotImplementedException();
+        await _features.DeleteOneAsync(a=>a.Id==id);
     }
 
-    public Task<GetFeatureByIdDto> GetFeatureByIdAsync(string id)
+    public async Task<List<ResultFeatureDto>> GetAllFeaturesAsync()
     {
-        throw new NotImplementedException();
+        var values = await _features.Find(a => true).ToListAsync();
+        return _mapper.Map<List<ResultFeatureDto>>(values);
     }
 
-    public Task UpdateFeatureAsync(UpdateFeatureDto feature)
+    public async Task<GetFeatureByIdDto> GetFeatureByIdAsync(string id)
     {
-        throw new NotImplementedException();
+        var value = await _features.Find(a => a.Id == id).FirstOrDefaultAsync();
+        return _mapper.Map<GetFeatureByIdDto>(value);
+    }
+
+    public async Task UpdateFeatureAsync(UpdateFeatureDto feature)
+    {
+        var value = _mapper.Map<Feature>(feature);
+        await _features.FindOneAndReplaceAsync(a=>a.Id==feature.Id, value);
     }
 }
