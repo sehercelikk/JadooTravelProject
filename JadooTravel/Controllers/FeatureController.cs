@@ -1,7 +1,6 @@
 ﻿using JadooTravel.Dtos.FeatureDtos;
 using JadooTravel.Services.FeatureService;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 
 namespace JadooTravel.Controllers;
 
@@ -32,7 +31,15 @@ public class FeatureController : Controller
     public async Task<IActionResult> UpdateFeature(string id)
     {
         var findId= await _featureService.GetFeatureByIdAsync(id);
-        return View(findId);
+        var mapEntity = new UpdateFeatureDto
+        {
+            Id = findId.Id,
+            Description = findId.Description,
+            MainTitle = findId.MainTitle,
+            Title = findId.Title,
+            VideoUrl = findId.VideoUrl,
+        };
+        return View(mapEntity);
     }
 
     [HttpPost]

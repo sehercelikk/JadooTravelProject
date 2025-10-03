@@ -32,8 +32,16 @@ public class TestimonialController : Controller
 
     public async Task<IActionResult> UpdateTestimonial(string id)
     {
-        var findId = await _testimonialService.GetTestimonialByIdAsync(id);
-        return View(findId);
+        var findId =await _testimonialService.GetTestimonialByIdAsync(id);
+        var mapEntity = new UpdateTestimonialDto
+        {
+            CityCountry = findId.CityCountry,
+            Description = findId.Description,
+            FullName = findId.FullName,
+            Id = findId.Id,
+            ImageUrl = findId.ImageUrl
+        };
+        return View(mapEntity);
     }
 
     [HttpPost]

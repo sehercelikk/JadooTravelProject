@@ -32,7 +32,14 @@ public class ReservationController : Controller
     public async Task<IActionResult> UpdateReservation(string id)
     {
         var findId = await _rezervationService.GetRezervationByIdAsync(id);
-        return View(findId);
+        var mapEntity = new UpdateRezervationDto
+        {
+            Id = findId.Id,
+            Description = findId.Description,
+            Title = findId.Title,
+            IconUrl = findId.IconUrl,
+        };
+        return View(mapEntity);
     }
 
     [HttpPost]

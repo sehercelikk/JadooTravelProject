@@ -44,7 +44,7 @@ public class GeneralMapping : Profile
 
         CreateMap<Testimonial, ResultTestimonialDto>().ReverseMap();
         CreateMap<Testimonial, CreateTestimonialDto>().ReverseMap();
-        CreateMap<Testimonial, UpdateServiceDto>().ReverseMap();
+        CreateMap<Testimonial, UpdateTestimonialDto>().ReverseMap();
         CreateMap<Testimonial, GetTestimonialByIdDto>().ReverseMap();
 
 

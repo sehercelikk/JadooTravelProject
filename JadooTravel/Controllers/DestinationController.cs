@@ -38,7 +38,17 @@ public class DestinationController : Controller
     public async Task<IActionResult> UpdateDestination(string id)
     {
         var findId = await _destinationService.GetDestinationByIdAsync(id);
-        return View(findId);
+        var mapEntity = new UpdateDestinationDto
+        {
+            Description = findId.Description,
+            Capacity = findId.Capacity,
+            CityCountry = findId.CityCountry,
+            DayNight = findId.DayNight,
+            Id = findId.Id,
+            ImageUrl = findId.ImageUrl,
+            Price = findId.Price
+        };
+        return View(mapEntity);
     }
     [HttpPost]
     public async Task<IActionResult> UpdateDestination(UpdateDestinationDto model)

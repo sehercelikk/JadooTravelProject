@@ -4,6 +4,7 @@ using JadooTravel.Services.FeatureService;
 using JadooTravel.Services.ReservationService;
 using JadooTravel.Services.ServiceService;
 using JadooTravel.Services.TestimonialService;
+using JadooTravel.Services.TranslatorService;
 using JadooTravel.Services.TripPlanService;
 using JadooTravel.Settings;
 using Microsoft.Extensions.Options;
@@ -20,6 +21,9 @@ builder.Services.AddScoped<IRezervationService, RezervationService>();
 builder.Services.AddScoped<IServiceService, ServiceService>();
 builder.Services.AddScoped<ITestimonialService, TestimonialService>();
 builder.Services.AddScoped<ITripPlanService, TripPlanService>();
+
+
+builder.Services.AddSingleton<TranslatorService>();
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
@@ -41,6 +45,16 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+var supportedCultures = new[] { "tr", "en", "de" };
+var localizationOptions = new RequestLocalizationOptions()
+    .SetDefaultCulture("tr")
+    .AddSupportedCultures(supportedCultures)
+    .AddSupportedUICultures(supportedCultures);
+
+app.UseRequestLocalization(localizationOptions);
+
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

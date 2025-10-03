@@ -31,7 +31,15 @@ public class CategoryController : Controller
     public async Task<IActionResult> UpdateCategory(string id)
     {
         var findId = await _catgoryService.GetCategoryByIdAsync(id);
-        return View(findId);
+        var mapEntity = new UpdateCategoryDto
+        {
+            Id = id,
+            CategoryName = findId.CategoryName,
+            Description = findId.Description,
+            IconUrl = findId.IconUrl,
+            Status = findId.Status,
+        };
+        return View(mapEntity);
     }
 
     [HttpPost]
