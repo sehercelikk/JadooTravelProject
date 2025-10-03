@@ -46,13 +46,14 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-var supportedCultures = new[] { "tr", "en", "de" };
+var supportedCultures = new[] { "tr", "en", "fr", "es" };
 var localizationOptions = new RequestLocalizationOptions()
     .SetDefaultCulture("tr")
     .AddSupportedCultures(supportedCultures)
     .AddSupportedUICultures(supportedCultures);
 
 app.UseRequestLocalization(localizationOptions);
+
 
 
 

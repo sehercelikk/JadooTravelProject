@@ -1,4 +1,7 @@
-﻿using JadooTravel.Services.DestinationServices;
+﻿using JadooTravel.Entities;
+using JadooTravel.Services.DestinationServices;
+using JadooTravel.Services.TranslatorService;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
@@ -7,15 +10,31 @@ namespace JadooTravel.ViewComponents;
 public class _DefaultDestinationComponentPartial : ViewComponent
 {
     private readonly IDestinationService _destinationService;
-
-    public _DefaultDestinationComponentPartial(IDestinationService destinationService)
+    private readonly TranslatorService _translatorService;
+    public _DefaultDestinationComponentPartial(IDestinationService destinationService, TranslatorService translator)
     {
         _destinationService = destinationService;
+        _translatorService = translator;
     }
 
     public async Task<IViewComponentResult> InvokeAsync()
     {
         var values= await _destinationService.GetDestinationListAsync();
+
+        var lang = HttpContext.Request.Cookies[CookieRequestCultureProvider.DefaultCookieName]?.Split('|')[0].Split('=')[1] ?? "tr";
+
+        if (lang != "tr")
+        {
+            foreach (var t in values)
+            {
+                t.Description = await _translatorService.TranslateAsync(t.Description, lang);
+                t.DayNight = await _translatorService.TranslateAsync(t.DayNight, lang);
+                t.CityCountry = await _translatorService.TranslateAsync(t.CityCountry, lang);
+                t.Price = decimal.Parse(await _translatorService.TranslateAsync(t.Price.ToString(), lang));
+                t.Capacity =int.Parse(await _translatorService.TranslateAsync(t.Capacity.ToString(), lang));
+                
+            }
+        }
         return View(values);
     }
 }

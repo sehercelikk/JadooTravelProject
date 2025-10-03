@@ -16,12 +16,13 @@
                 <li class="nav-item px-3 px-xl-4"><a class="btn btn-outline-dark order-1 order-lg-0 fw-medium" href="#!">Kayıt Ol</a></li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        @ViewBag.CurrentLanguage
+                        @ViewBag.CurrentLanguage.ToUpper()
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg" aria-labelledby="languageDropdown" style="border-radius:0.3rem;">
                         <li><a class="dropdown-item" asp-controller="Default" asp-action="SetLanguage" asp-route-culture="tr" asp-route-returnUrl="@Context.Request.Path">TR</a></li>
                         <li><a class="dropdown-item" asp-controller="Default" asp-action="SetLanguage" asp-route-culture="en" asp-route-returnUrl="@Context.Request.Path">EN</a></li>
-                        <li><a class="dropdown-item" asp-controller="Default" asp-action="SetLanguage" asp-route-culture="de" asp-route-returnUrl="@Context.Request.Path">DE</a></li>
+                        <li><a class="dropdown-item" asp-controller="Default" asp-action="SetLanguage" asp-route-culture="fr" asp-route-returnUrl="@Context.Request.Path">FR</a></li>
+                        <li><a class="dropdown-item" asp-controller="Default" asp-action="SetLanguage" asp-route-culture="es" asp-route-returnUrl="@Context.Request.Path">ES</a></li>
                     </ul>
                 </li>
 

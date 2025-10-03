@@ -10,22 +10,24 @@ public class TranslatorService
 
     public TranslatorService(IConfiguration config)
     {
-        _key = config["TranslatorService:Key"];
         _endpoint = config["TranslatorService:Endpoint"];
+        _key = config["TranslatorService:Key"];
         _region = config["TranslatorService:Region"];
+
         _httpClient = new HttpClient();
     }
 
     public async Task<string> TranslateAsync(string text, string toLanguage)
     {
+        if (string.IsNullOrWhiteSpace(text)) return text;
+
         string route = $"/translate?api-version=3.0&to={toLanguage}";
+        var requestUri = new Uri(_endpoint.TrimEnd('/') + route);
 
         var requestBody = JsonSerializer.Serialize(new object[] { new { Text = text } });
 
-        using var request = new HttpRequestMessage
+        using var request = new HttpRequestMessage(HttpMethod.Post, requestUri)
         {
-            Method = HttpMethod.Post,
-            RequestUri = new Uri(_endpoint + route),
             Content = new StringContent(requestBody, Encoding.UTF8, "application/json")
         };
 
@@ -33,11 +35,26 @@ public class TranslatorService
         request.Headers.Add("Ocp-Apim-Subscription-Region", _region);
 
         var response = await _httpClient.SendAsync(request);
+        response.EnsureSuccessStatusCode(); // Hata varsa burada fırlatır
+
         var jsonResponse = await response.Content.ReadAsStringAsync();
 
+        // JSON parse
         using var doc = JsonDocument.Parse(jsonResponse);
-        var translated = doc.RootElement[0].GetProperty("translations")[0].GetProperty("text").GetString();
+        if (doc.RootElement.ValueKind == JsonValueKind.Array)
+        {
+            return doc.RootElement[0].GetProperty("translations")[0].GetProperty("text").GetString() ?? text;
+        }
+        else if (doc.RootElement.ValueKind == JsonValueKind.Object)
+        {
+            // Bazen object dönüyorsa fallback
+            if (doc.RootElement.TryGetProperty("translations", out var translations))
+            {
+                return translations[0].GetProperty("text").GetString() ?? text;
+            }
+        }
 
-        return translated ?? text;
+        return text;
     }
+
 }
