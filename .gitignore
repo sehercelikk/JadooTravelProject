@@ -361,4 +361,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd"JadooTravel/appsettings.json" 
-"JadooTravel/appsettings.json" 
+"JadooTravel/appsettings.json"
+
+ 
+JadooTravel/appsettings.json
+JadooTravel/appsettings.Development.json
