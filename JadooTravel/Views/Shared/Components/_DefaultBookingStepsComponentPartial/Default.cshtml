@@ -1,4 +1,6 @@
-﻿
+﻿@using JadooTravel.Dtos.ReservationDtos
+@model List<ResultRezervationDto>
+
 @*
     For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 *@
@@ -9,33 +11,39 @@
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="mb-4 text-start">
-                    <h5 class="text-secondary">Kolay ve Hızlı Rezervasyon </h5>
-                    <h3 class="fs-xl-10 fs-lg-8 fs-7 fw-bold font-cursive text-capitalize">3 Adımda Rezervasyonunuzu Yap</h3>
+                    <h5 class="text-secondary">@ViewBag.Subtitle</h5>
+                    <h3 class="fs-xl-10 fs-lg-8 fs-7 fw-bold font-cursive text-capitalize">@ViewBag.Title</h3>
                 </div>
-                <div class="d-flex align-items-start mb-5">
-                    <div class="bg-primary me-sm-4 me-3 p-3" style="border-radius: 13px"> <img src="/public/assets/img/steps/selection.svg" width="22" alt="steps" /></div>
-                    <div class="flex-1">
-                        <h5 class="text-secondary fw-bold fs-0">Choose Destination</h5>
-                        <p>Choose your favourite place. No matter <br class="d-none d-sm-block"> where you travel inside the World.</p>
+                @foreach(var item in Model)
+                {
+                    <div class="d-flex align-items-start mb-5">
+                        <div class="bg-primary me-sm-4 me-3 p-3" style="border-radius: 13px">  <i class="@item.IconUrl text-info text-primary" style="font-size: 20px;"></i></div>
+                        <div class="flex-1">
+                            <h5 class="text-secondary fw-bold fs-0">@item.Title</h5>
+                            <p>@item.Description</p>
+                        </div>
                     </div>
-                </div>
-                <div class="d-flex align-items-start mb-5">
-                    <div class="bg-danger me-sm-4 me-3 p-3" style="border-radius: 13px"> <img src="/public/assets/img/steps/water-sport.svg" width="22" alt="steps" /></div>
-                    <div class="flex-1">
-                        <h5 class="text-secondary fw-bold fs-0">Make Payment</h5>
-                        <p>After find your perfect spot, make your <br class="d-none d-sm-block"> payment and get ready to travel.</p>
-                    </div>
-                </div>
-                <div class="d-flex align-items-start mb-5">
-                    <div class="bg-info me-sm-4 me-3 p-3" style="border-radius: 13px"> <img src="/public/assets/img/steps/taxi.svg" width="22" alt="steps" /></div>
-                    <div class="flex-1">
-                        <h5 class="text-secondary fw-bold fs-0">Reach Airport on Selected Date</h5>
-                        <p>Lastly, you have to arrive at the airport <br class="d-none d-sm-block"> on time and enjoy the vacation.</p>
-                    </div>
-                </div>
+                }
             </div>
-            <div class="col-lg-6 d-flex justify-content-center align-items-start">
-                
+            <div class="col-lg-6">
+                    <div class="p-4 bg-light rounded-3 shadow-sm">
+                        <h5 class="text-secondary mb-3">@ViewBag.Baslik</h5>
+                        <form>
+                            <div class="mb-3">
+                                <label for="name" class="form-label">@ViewBag.Adiniz</label>
+                                <input type="text" class="form-control" id="name" >
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">@ViewBag.EPosta</label>
+                                <input type="email" class="form-control" id="email" >
+                            </div>
+                            <div class="mb-3">
+                                <label for="message" class="form-label">@ViewBag.Mesaj</label>
+                                <textarea class="form-control" id="message" rows="4"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">@ViewBag.Gönder</button>
+                        </form>
+                    </div>
             </div>
         </div>
     </div><!-- end of .container-->

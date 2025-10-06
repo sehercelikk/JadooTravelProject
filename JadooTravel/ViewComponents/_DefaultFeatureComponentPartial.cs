@@ -19,7 +19,7 @@ public class _DefaultFeatureComponentPartial: ViewComponent
     public async Task<IViewComponentResult> InvokeAsync()
     {
         var result = await _featureService.GetAllFeaturesAsync();
-
+        var play = "İzle";
         var lang = HttpContext.Request.Cookies[CookieRequestCultureProvider.DefaultCookieName]?.Split('|')[0].Split('=')[1] ?? "tr";
 
         if (lang != "tr")
@@ -29,9 +29,11 @@ public class _DefaultFeatureComponentPartial: ViewComponent
                 t.Title = await _translatorService.TranslateAsync(t.Title, lang);
                 t.MainTitle = await _translatorService.TranslateAsync(t.MainTitle, lang);
                 t.Description = await _translatorService.TranslateAsync(t.Description, lang);
+                play = await _translatorService.TranslateAsync(play, lang);
 
             }
         }
+        ViewBag.Play = play;
         return View(result);
     }
 }

@@ -20,7 +20,8 @@ public class _DefaultDestinationComponentPartial : ViewComponent
     public async Task<IViewComponentResult> InvokeAsync()
     {
         var values= await _destinationService.GetDestinationListAsync();
-
+        var title1 = "En Çok Tercih Edilen";
+        var title2 = "Tur Rotalarınız";
         var lang = HttpContext.Request.Cookies[CookieRequestCultureProvider.DefaultCookieName]?.Split('|')[0].Split('=')[1] ?? "tr";
 
         if (lang != "tr")
@@ -32,9 +33,13 @@ public class _DefaultDestinationComponentPartial : ViewComponent
                 t.CityCountry = await _translatorService.TranslateAsync(t.CityCountry, lang);
                 t.Price = decimal.Parse(await _translatorService.TranslateAsync(t.Price.ToString(), lang));
                 t.Capacity =int.Parse(await _translatorService.TranslateAsync(t.Capacity.ToString(), lang));
-                
+                title1 = await _translatorService.TranslateAsync(title1, lang);
+                title2 = await _translatorService.TranslateAsync(title2, lang);
+
             }
         }
+        ViewBag.Title1 = title1;
+        ViewBag.Title2 = title2;
         return View(values);
     }
 }
