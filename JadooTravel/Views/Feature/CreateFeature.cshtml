@@ -3,10 +3,17 @@
 @{
     ViewData["Title"] = "CreateFeature";
     Layout = "~/Views/AdminUI/Index.cshtml";
+    var message = ViewBag.message;
 }
 
 <div class="container">
     <br />
+    @if(message != null)
+    {
+        <div class="alert alert-info">
+            @message
+        </div>
+    }
     <form method="post">
         <div class="form-group">
             <label>Başlık</label>

@@ -15,7 +15,7 @@ public class FeatureController : Controller
 
     public async Task<IActionResult> FeatureList()
     {
-        var result= await _featureService.GetAllFeaturesAsync();
+        var result = await _featureService.GetAllFeaturesAsync();
         return View(result);
     }
 
@@ -24,13 +24,19 @@ public class FeatureController : Controller
     [HttpPost]
     public async Task<IActionResult> CreateFeature(CreateFeatureDto model)
     {
-        await _featureService.CreateFeatureAsync(model);
-        return RedirectToAction("FeatureList");
+        var result = await _featureService.CreateFeatureAsync(model);
+        if (result)
+            return RedirectToAction("FeatureList");
+        else
+        {
+            ViewBag.message = "Zaten kayıt mevcut, eklenmedi.";
+            return View();
+        }
     }
 
     public async Task<IActionResult> UpdateFeature(string id)
     {
-        var findId= await _featureService.GetFeatureByIdAsync(id);
+        var findId = await _featureService.GetFeatureByIdAsync(id);
         var mapEntity = new UpdateFeatureDto
         {
             Id = findId.Id,
