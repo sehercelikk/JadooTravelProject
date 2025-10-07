@@ -14,7 +14,7 @@
                     <h5 class="text-secondary">@ViewBag.Subtitle</h5>
                     <h3 class="fs-xl-10 fs-lg-8 fs-7 fw-bold font-cursive text-capitalize">@ViewBag.Title</h3>
                 </div>
-                @foreach(var item in Model)
+                @foreach (var item in Model)
                 {
                     <div class="d-flex align-items-start mb-5">
                         <div class="bg-primary me-sm-4 me-3 p-3" style="border-radius: 13px">  <i class="@item.IconUrl text-info text-primary" style="font-size: 20px;"></i></div>
@@ -25,25 +25,28 @@
                     </div>
                 }
             </div>
+
             <div class="col-lg-6">
-                    <div class="p-4 bg-light rounded-3 shadow-sm">
-                        <h5 class="text-secondary mb-3">@ViewBag.Baslik</h5>
-                        <form>
-                            <div class="mb-3">
-                                <label for="name" class="form-label">@ViewBag.Adiniz</label>
-                                <input type="text" class="form-control" id="name" >
-                            </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">@ViewBag.EPosta</label>
-                                <input type="email" class="form-control" id="email" >
-                            </div>
-                            <div class="mb-3">
-                                <label for="message" class="form-label">@ViewBag.Mesaj</label>
-                                <textarea class="form-control" id="message" rows="4"></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary">@ViewBag.Gönder</button>
-                        </form>
-                    </div>
+                <div class="p-4 bg-light rounded-3 shadow-sm">
+                    <h5 class="text-secondary mb-3">@ViewBag.Baslik</h5>
+                    <form method="post" action="/Booking/CreateUserReservation">
+                        <div class="form-group mb-3">
+                            <label>@ViewBag.Adiniz</label>
+                            <input type="text" name="FullName" class="form-control" required />
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label>@ViewBag.EPosta</label>
+                            <input type="email" name="Email" class="form-control" required />
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <label>@ViewBag.Mesaj</label>
+                            <textarea name="Message" class="form-control" rows="4"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">@ViewBag.Gönder</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div><!-- end of .container-->

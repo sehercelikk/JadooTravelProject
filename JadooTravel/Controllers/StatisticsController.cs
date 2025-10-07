@@ -1,12 +1,23 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using JadooTravel.Services.DestinationServices;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
-namespace JadooTravel.Controllers
+namespace JadooTravel.Controllers;
+
+public class StatisticsController : Controller
 {
-    public class StatisticsController : Controller
+    private readonly IDestinationService _destinationService;
+
+    public StatisticsController(IDestinationService destinationService)
     {
-        public IActionResult StatisticList()
-        {
-            return View();
-        }
+        _destinationService = destinationService;
+    }
+
+
+    [HttpGet]
+    public async Task<IActionResult> StatisticList()
+    {
+        var values = await _destinationService.TourWidthCapasity();
+        return View(values);
     }
 }

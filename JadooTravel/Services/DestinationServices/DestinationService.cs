@@ -11,9 +11,9 @@ public class DestinationService : IDestinationService
     private readonly IMongoCollection<Destination> _destinationCollection;
     private readonly IMapper _mapper;
 
-    public DestinationService(IMapper mapper,IDatabaseSetting _databaseSetting)
+    public DestinationService(IMapper mapper, IDatabaseSetting _databaseSetting)
     {
-        var client= new MongoClient(_databaseSetting.ConnectionString);
+        var client = new MongoClient(_databaseSetting.ConnectionString);
         var database = client.GetDatabase(_databaseSetting.DatabaseName);
         _destinationCollection = database.GetCollection<Destination>(_databaseSetting.DestinationCollectionName);
         _mapper = mapper;
@@ -27,7 +27,7 @@ public class DestinationService : IDestinationService
 
     public async Task DeleteDestinationAsync(string id)
     {
-       await _destinationCollection.DeleteOneAsync(a=>a.Id== id);
+        await _destinationCollection.DeleteOneAsync(a => a.Id == id);
     }
 
     public async Task<GetDestinationByIdDto> GetDestinationByIdAsync(string id)
@@ -44,8 +44,21 @@ public class DestinationService : IDestinationService
 
     public async Task UpdateDestinationAsync(UpdateDestinationDto model)
     {
-        var value= _mapper.Map<Destination>(model);
+        var value = _mapper.Map<Destination>(model);
         await _destinationCollection.FindOneAndReplaceAsync(a => a.Id == model.Id, value);
+    }
 
+    public async Task<List<ResultDestinationDto>> TourWidthCapasity()
+    {
+        var result = await _destinationCollection
+       .Find(a => true)
+       .Project(x => new ResultDestinationDto
+       {
+           Capacity = x.Capacity,
+           CityCountry = x.CityCountry
+       })
+       .ToListAsync();
+
+        return result;
     }
 }

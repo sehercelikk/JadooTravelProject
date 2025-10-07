@@ -3,7 +3,6 @@ using JadooTravel.Dtos.CategoryDtos;
 using JadooTravel.Dtos.DestinationDtos;
 using JadooTravel.Dtos.FeatureDtos;
 using JadooTravel.Dtos.ReservationDtos;
-using JadooTravel.Dtos.ServiceDtos;
 using JadooTravel.Dtos.TestimonialDtos;
 using JadooTravel.Dtos.TripPlanDtos;
 using JadooTravel.Entities;
@@ -36,10 +35,10 @@ public class GeneralMapping : Profile
         CreateMap<Reservation, GetRezervationByIdDto>().ReverseMap();
 
 
-        CreateMap<Service, ResultServiceDto>().ReverseMap();
-        CreateMap<Service, CreateServiceDto>().ReverseMap();
-        CreateMap<Service, UpdateServiceDto>().ReverseMap();
-        CreateMap<Service, GetServiceByIdDto>().ReverseMap();
+        CreateMap<UserReservation, CreateUserReservationDto>().ReverseMap();
+        CreateMap<UserReservation, UpdateUserReservationDto>().ReverseMap();
+        CreateMap<UserReservation, ResultUserReservationDto>().ReverseMap();
+        CreateMap<UserReservation, GetUserReservationByIdDto>().ReverseMap();
 
 
         CreateMap<Testimonial, ResultTestimonialDto>().ReverseMap();
@@ -48,10 +47,10 @@ public class GeneralMapping : Profile
         CreateMap<Testimonial, GetTestimonialByIdDto>().ReverseMap();
 
 
-        CreateMap<TripPlan, ResultTripPlanDto>().ReverseMap();
-        CreateMap<TripPlan, CreateTripPlanDto>().ReverseMap();
-        CreateMap<TripPlan, UpdateTripPlanDto>().ReverseMap();
-        CreateMap<TripPlan, GetTripPlanByIdDto>().ReverseMap();
+        CreateMap<TripPlan, ResultUserReservationDto>().ReverseMap();
+        CreateMap<TripPlan, CreateUserReservationDto>().ReverseMap();
+        CreateMap<TripPlan, UpdateUserReservationDto>().ReverseMap();
+        CreateMap<TripPlan, GetUserReservationByIdDto>().ReverseMap();
 
     }
 }

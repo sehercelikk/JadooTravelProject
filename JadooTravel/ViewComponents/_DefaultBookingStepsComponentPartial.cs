@@ -25,8 +25,8 @@ public class _DefaultBookingStepsComponentPartial: ViewComponent
         var adiniz = "Adınız";
         var eposta = "E-Posta";
         var mesaj = "Mesajınız";
-        var gonder = "Gönder";
-        var baslik = "Bize Ulaşın";
+        var gonder = "Rezervasyon Talebi Oluştur";
+        var baslik = "Rezervasyon için Bize Yazın";
 
         var lang = HttpContext.Request.Cookies[CookieRequestCultureProvider.DefaultCookieName]?.Split('|')[0].Split('=')[1] ?? "tr";
 
@@ -43,7 +43,6 @@ public class _DefaultBookingStepsComponentPartial: ViewComponent
                 mesaj = await _translatorService.TranslateAsync(mesaj, lang);
                 gonder = await _translatorService.TranslateAsync(gonder, lang);
                 baslik = await _translatorService.TranslateAsync(baslik, lang);
-
             }
         }
         ViewBag.Title= title;

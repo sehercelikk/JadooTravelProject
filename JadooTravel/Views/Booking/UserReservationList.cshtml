@@ -1,0 +1,30 @@
+﻿@using JadooTravel.Dtos.TripPlanDtos
+@model List<ResultUserReservationDto>
+@{
+    ViewData["Title"] = "UserReservationList";
+    Layout = "~/Views/AdminUI/Index.cshtml";
+}
+
+<div class="container">
+    <br />
+    <table class="table table-bordered">
+        <tr>
+            <td>#</td>
+            <td>Ad Soyad</td>
+            <td>Email</td>
+            <td>Mesaj</td>
+            <td>Sil</td>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.FullName</td>
+                <td>@item.Email</td>
+                <td>@item.Message</td>
+                <td><a href="/Booking/DeleteUserReservation/@item.Id" class="btn btn-danger">Sil</a></td>
+            </tr>
+        }
+    </table>
+</div>
+

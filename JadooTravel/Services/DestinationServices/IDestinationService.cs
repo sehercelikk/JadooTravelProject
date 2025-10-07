@@ -9,4 +9,5 @@ public interface IDestinationService
     Task UpdateDestinationAsync(UpdateDestinationDto model);
     Task DeleteDestinationAsync(string id);
     Task<GetDestinationByIdDto> GetDestinationByIdAsync(string id);
+    Task<List<ResultDestinationDto>> TourWidthCapasity();
 }
