@@ -52,6 +52,6 @@ public class ReservationController : Controller
     public async Task<IActionResult> DeleteReservation(string id)
     {
         await _rezervationService.DeleteRezervationAsync(id);
-        return RedirectToAction("FeatureList");
+        return RedirectToAction("ReservationList");
     }
 }
